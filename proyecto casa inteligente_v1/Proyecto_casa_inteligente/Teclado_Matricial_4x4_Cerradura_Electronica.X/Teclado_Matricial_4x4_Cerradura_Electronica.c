@@ -1,9 +1,5 @@
-/*===========================================================================================================================
- * Codigo tomado y adaptado del canal de YouTube: jorge APC
- * modificado por: Camila Andrea Quintero
- *                 Yimmer Mezu Castro 
- *                 Jhonatan Villegas 
- *                 Juan Carlos Camacho MuÒoz
+/*===========================================================================================================================          
+ *Realizado por:Juan Carlos Camacho Mu√±oz
  ==========================================================================================================================*/
 ///////////////////////////////////////////////////   dht11 /////////////////////////////////////////////////////////////////
 #include <pic18f4550.h>
@@ -26,12 +22,12 @@ unsigned char      buffer_ldr[16];    //alamcenar el mensaje a mostar en el lcd
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <xc.h>                       // Incluimos todos los registros del PIC18F4550.
-#include <stdint.h>                   // Incluimos esta librerÌa para trabajar con variables enteras.
-#include <stdio.h>                    // Incluimos esta librerÌa para trabajar con perifericos de entrada/salida.
-#include <string.h>                   // Incluimos esta librerÌa para trabajar con cadenas de caracteres.
+#include <stdint.h>                   // Incluimos esta librer√≠a para trabajar con variables enteras.
+#include <stdio.h>                    // Incluimos esta librer√≠a para trabajar con perifericos de entrada/salida.
+#include <string.h>                   // Incluimos esta librer√≠a para trabajar con cadenas de caracteres.
 #include "Bits_Configuracion.h"       // Incluimos el archivo de cabecera para los fusibles.
-#include "LCD_16x2_Library.h"         // Incluimos la librerÌa LCD 16x2.
-#include "KeyPad_4x4_Library.h"       // Incluimos la librerÌa Keypad 4x4.
+#include "LCD_16x2_Library.h"         // Incluimos la librer√≠a LCD 16x2.
+#include "KeyPad_4x4_Library.h"       // Incluimos la librer√≠a Keypad 4x4.
 
 #define TRIS_Leds   TRISC             // Asignamos el nombre "TRIS_Leds" al registro TRISC.
 #define LAT_Leds    LATC              // Asignamos el nombre "LAT_Leds" al registro LATC.
@@ -46,16 +42,16 @@ unsigned char      buffer_ldr[16];    //alamcenar el mensaje a mostar en el lcd
 uint8_t Buffer_LCD[16];               // Arreglo de tipo entero 8 bits, Almacena el formato de las variables a mostrar en la pantalla LCD.
 uint8_t Contador_Tecla=0;             // Variable de tipo entero,cuenta las veces que se pulsa una tecla. 
 char K;                               // Variable de tipo caracter, aqui se almacena el valor de la tecla presionada.
-char Password[5];                     // Arreglo de tipo caracter, aqui se almacena la contraseÒa generada por el usuario.
+char Password[5];                     // Arreglo de tipo caracter, aqui se almacena la contrase√±a generada por el usuario.
 char clave[5]="2501";                 // Arreglo de tipo caracter, aqui se almacena la clave para ingresar.
-unsigned long Tiempo_Apertura=3000;   // Tiempo en segundos que estar· aperturada la puerta.
-unsigned long Tiempo_Incorrecto=2000; // Tiempo en el que aparecer· el mensaje de contraseÒa incorrecta en la LCD.
+unsigned long Tiempo_Apertura=3000;   // Tiempo en segundos que estar√° aperturada la puerta.
+unsigned long Tiempo_Incorrecto=2000; // Tiempo en el que aparecer√° el mensaje de contrase√±a incorrecta en la LCD.
 unsigned long tiempo_bloqueo=20;      //Tiempo de bloqueo del usuario en segundos
 
 /*==========================================================================================================
  ===========================================================================================================*/
 
-void Configuracion_Registros (void);  // FunciÛn para configurar los registros del PIC18F4550 necesarios en este programa.
+void Configuracion_Registros (void);  // Funci√≥n para configurar los registros del PIC18F4550 necesarios en este programa.
 void dht11(void);                     // Funcion para administrar el confort de la casa
 int LDR_funcion(void);                // Funcion para administar el ldr
 void encender_lampara(int);           // Funcion para encender la lampara
@@ -68,11 +64,11 @@ void main(void)
     char tiempo[30];                  //almacenamos el tiempo de bloqueo a mostrar en el lcd
     int  intentos =0 ;                //Variable para contar el numero de intentos
     OSCCON=0x72;
-    Configuracion_Registros();        // Llamamos a la funciÛn "Configuracion_Registros".
+    Configuracion_Registros();        // Llamamos a la funci√≥n "Configuracion_Registros".
     lcd_init();                       // Inicializamos la pantalla LCD 16x2.
     Keypad_Init();                    // Inicializamos el Keypad 4x4.
     LAT_Leds&=~((1<<0)|(1<<1)|(1<<2));// Inicialmente los leds y el buzzer estaran apagados.
-    LAT_Leds&=~(1<<7);                // Inicialmente el pin RC7 estar· desenergizado 
+    LAT_Leds&=~(1<<7);                // Inicialmente el pin RC7 estar√° desenergizado 
     
     Led_Red=1;                        //encendemos el led indicador de la cerradura ON=abierto off=cerrado
     lcd_clear();                      // Limpiamos la pantalla LCD.
@@ -106,9 +102,9 @@ void main(void)
         __delay_ms(200);              // Retardo de tiempo.
         lcd_clear();                  // Limpiamos la pantalla LCD.
         
-        if(!strcmp(Password,clave))// La funciÛn "strcmp" sirve para comparar dos cadenas y asÌ saber si son iguales o son diferentes. 
+        if(!strcmp(Password,clave))// La funci√≥n "strcmp" sirve para comparar dos cadenas y as√≠ saber si son iguales o son diferentes. 
         
-        {                             // Comparamos si la contraseÒa es correcta.
+        {                             // Comparamos si la contrase√±a es correcta.
             lcd_gotoxy(1,1);          // Posicionamos el cursor en fila 1, columna 1.
             lcd_putc(" clave correcta "); // Mostramos el mensaje en la pantalla LCD.
             lcd_gotoxy(2,1);          // Posicionamos el cursor en fila 2, columna 1.
@@ -161,9 +157,9 @@ void main(void)
 /*==========================================================================================================
  ===========================================================================================================*/
 
-void Configuracion_Registros (void) // FunciÛn para configurar los registros del PIC18F4550 necesarios en este programa.
+void Configuracion_Registros (void) // Funci√≥n para configurar los registros del PIC18F4550 necesarios en este programa.
 {
-    ADCON1bits.PCFG=0b1111;         // Deshabilitamos las entradas analÛgicas de los puertos A y B.
+    ADCON1bits.PCFG=0b1111;         // Deshabilitamos las entradas anal√≥gicas de los puertos A y B.
     TRIS_Leds&=~((1<<0)|(1<<1)|(1<<2));// Configuramos los pines RC0, RC1 y RC2 como salidas digitales. 
     TRIS_Leds&=~(1<<7);             // Configuramos el pin RC7 como salida digital. 
 }
@@ -171,7 +167,7 @@ void Configuracion_Registros (void) // FunciÛn para configurar los registros del
 //////////////////////////////////////////////////////////////////////////////////////
 void dht11(){
     int ldr_ouput=0;                  //allmacena la salida del ldr poca luz=1 , luz alta=0
-    Configuracion_Registros();        // Llamamos a la funciÛn "Configuracion_Registros".
+    Configuracion_Registros();        // Llamamos a la funci√≥n "Configuracion_Registros".
     lcd_init();                       // Inicializamos la pantalla LCD 16x2.
     char RH_Decimal,RH_Integral,T_Decimal,T_Integral;
     char Checksum;
